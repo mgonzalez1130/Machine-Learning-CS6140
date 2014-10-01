@@ -82,7 +82,7 @@ public class linearRegression {
 	private static double normalizeAndPredict(int rowIndex) {
 		double predictedValue = 0;
 		for (int i = 0; i < columnNumber; i++) {
-			predictedValue += normalizeValue(testMatrix.get(rowIndex, i), i) 
+			predictedValue += normalizeValue(trainMatrix.get(rowIndex, i), i) 
 					* coefficients[i];
 		}
 		return predictedValue;
