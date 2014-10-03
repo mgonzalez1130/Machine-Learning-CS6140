@@ -69,6 +69,10 @@ public class LogisticRegression {
 
 	private static void testLogisticRegression() {
 		int errorRate = 0;
+		int truePos = 0;
+		int trueNeg = 0;
+		int falsePos = 0;
+		int falseNeg = 0;
 		for (int i = 0; i < testMatrix.getRowDimension(); i++) {
 			//extract the current row as its own matrix
 			int initColIndex = 0;
@@ -78,18 +82,40 @@ public class LogisticRegression {
 			//calculate the constant that the current row is going to be multiplied by
 			double estLabel = calculateEstimatedLabel(currentRow);
 			double actLabel = actualLabels.get(i , 0);
+			estLabel = (estLabel >= .9999998) ? 1 : 0;
 //			System.err.println(estLabel);
 //			System.err.println(actLabel);
 //			System.err.println("");
 			
 			if (estLabel != actLabel) errorRate++;
+
+			if (actLabel == 1 && estLabel == 1) {
+			    truePos++;
+			}
+			if (actLabel == 0 && estLabel == 0) {
+			    trueNeg++;
+			}
+			if (actLabel == 1 && estLabel == 0) {
+			    falseNeg++;
+			}
+			if (actLabel == 0 && estLabel == 1) {
+			    falsePos++;
+			}
 	
 
 		}
 		System.out.println ("The test accuracy is: " + errorRate + " wrong out of " 
 				+ testMatrix.getRowDimension() + " test rows");
+		System.out.println("True pos: " + truePos);
+		System.out.println("True neg: " + trueNeg);
+		System.out.println("False pos: " + falsePos);
+		System.out.println("False Neg: " + falseNeg);
 
 		errorRate = 0;
+		truePos = 0;
+		trueNeg = 0;
+		falsePos = 0;
+		falseNeg = 0;
 		for (int i = 0; i <= trainMatrix.getRowDimension() - 1; i++) {
 			//extract the current row as its own matrix
 			int initColIndex = 0;
@@ -99,6 +125,7 @@ public class LogisticRegression {
 			//calculate the constant that the current row is going to be multiplied by
 			double estLabel = calculateEstimatedLabel(currentRow);
 			double actLabel = actualLabels.get(i , 0);
+	        estLabel = (estLabel >= .99999989) ? 1 : 0;
 //			System.err.println(estLabel);
 //			System.err.println(actLabel);
 //			System.err.println("");
@@ -106,9 +133,26 @@ public class LogisticRegression {
 			
 			if (estLabel != actLabel) errorRate++;
 
+			if (actLabel == 1 && estLabel == 1) {
+			    truePos++;
+			}
+			if (actLabel == 0 && estLabel == 0) {
+			    trueNeg++;
+			}
+			if (actLabel == 1 && estLabel == 0) {
+			    falseNeg++;
+			}
+			if (actLabel == 0 && estLabel == 1) {
+			    falsePos++;
+			}
+
 		}
 		System.out.println ("The train accuracy is: " + errorRate + " wrong out of " 
 				+ trainMatrix.getRowDimension() + " train rows");
+		System.out.println("True pos: " + truePos);
+		System.out.println("True neg: " + trueNeg);
+		System.out.println("False pos: " + falsePos);
+		System.out.println("False Neg: " + falseNeg);
 
 	}
 
